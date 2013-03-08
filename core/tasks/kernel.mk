@@ -70,7 +70,7 @@ else
         $(warning * Please add the TARGET_KERNEL_CONFIG variable to your   *)
         $(warning * BoardConfig.mk file                                    *)
         $(warning **********************************************************)
-        $(error "NO KERNEL CONFIG")
+        # $(error "NO KERNEL CONFIG")
     else
         #$(info Kernel source found, building it)
         FULL_KERNEL_BUILD := true
@@ -119,13 +119,13 @@ ifeq ($(TARGET_ARCH),arm)
       endif
     endif
     ifneq ($(TARGET_KERNEL_CUSTOM_TOOLCHAIN),)
-      ifeq ($(HOST_OS),darwin)
-        ARM_CROSS_COMPILE:=CROSS_COMPILE="$(ccache) $(ANDROID_BUILD_TOP)/prebuilt/darwin-x86/toolchain/$(TARGET_KERNEL_CUSTOM_TOOLCHAIN)/bin/arm-eabi-"
-      else
-        ARM_CROSS_COMPILE:=CROSS_COMPILE="$(ccache) $(ANDROID_BUILD_TOP)/prebuilt/linux-x86/toolchain/$(TARGET_KERNEL_CUSTOM_TOOLCHAIN)/bin/arm-eabi-"
-      endif
+        ifeq ($(HOST_OS),darwin)
+            ARM_CROSS_COMPILE:=CROSS_COMPILE="$(ccache) $(ANDROID_BUILD_TOP)/prebuilt/darwin-x86/toolchain/$(TARGET_KERNEL_CUSTOM_TOOLCHAIN)/bin/arm-eabi-"
+        else
+            ARM_CROSS_COMPILE:=CROSS_COMPILE="$(ccache) $(ANDROID_BUILD_TOP)/prebuilt/linux-x86/toolchain/$(TARGET_KERNEL_CUSTOM_TOOLCHAIN)/bin/arm-eabi-"
+        endif
     else
-      ARM_CROSS_COMPILE:=CROSS_COMPILE="$(ccache) $(ARM_EABI_TOOLCHAIN)/arm-eabi-"
+        ARM_CROSS_COMPILE:=CROSS_COMPILE="$(ccache) $(ARM_EABI_TOOLCHAIN)/arm-eabi-"
     endif
     ccache = 
 endif
