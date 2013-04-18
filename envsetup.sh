@@ -4,6 +4,7 @@ Invoke ". build/envsetup.sh" from your shell to add the following functions to y
 - lunch:    lunch <product_name>-<build_variant>
 - tapas:    tapas [<App1> <App2> ...] [arm|x86|mips] [eng|userdebug|user]
 - croot:    Changes directory to the top of the tree.
+- groot:    Changes directory to the root of the git project.
 - m:        Makes from the top of the tree.
 - mm:       Builds all of the modules in the current directory.
 - mmm:      Builds all of the modules in the supplied directories.
@@ -14,6 +15,7 @@ Invoke ". build/envsetup.sh" from your shell to add the following functions to y
 - mka:      Builds using SCHED_BATCH on all processors
 - mbot:     Builds for all devices using the psuedo buildbot
 - mkapush:  Same as mka with the addition of adb pushing to the device.
+- pstest:   cherry pick a patch from the AOKP gerrit instance.
 - taco:     Builds for a single device using the pseudo buildbot
 - reposync: Parallel repo sync using ionice and SCHED_BATCH
 
@@ -800,6 +802,16 @@ function croot()
     fi
 }
 
+function groot()
+{
+    T=$(git rev-parse --show-cdup)
+    if [ "$T" ]; then
+        cd $(git rev-parse --show-cdup)
+    else
+        echo "Already at the root of the git project."
+    fi
+}
+
 function cproj()
 {
     TOPFILE=build/core/envsetup.mk
@@ -1286,6 +1298,21 @@ function mkapush() {
             fi
             ;;
     esac
+}
+
+function pstest() {
+    if [ -z "$1" ] || [ "$1" = '--help' ] || [[ "$1" != */* ]]
+    then
+        echo "pstest"
+        echo "to use: pstest PATCH_ID/PATCH_SET"
+        echo "example: pstest 5555/5"
+    else
+        gerrit=gerrit.sudoservers.com
+        project=`git config --get remote.aokp.projectname`
+        patch="$1"
+        submission=`echo $patch | cut -f1 -d "/" | tail -c 3`
+        git fetch http://$gerrit/$project refs/changes/$submission/$patch && git cherry-pick FETCH_HEAD
+    fi
 }
 
 function taco() {
