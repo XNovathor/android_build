@@ -1703,7 +1703,7 @@ define obfuscate-jar
 @mkdir -p $(PRIVATE_INTERMEDIATES_DIR)
 $(hide) sed -e 's/^/-keep class /' < $(PRIVATE_KEEP_FILE) > \
 		$(PRIVATE_INTERMEDIATES_DIR)/keep.pro
-$(hide) java -Xmx512M -jar $(HOST_OUT_JAVA_LIBRARIES)/proguard-4.0.1.jar \
+$(hide) java -Xmx1024M -jar $(HOST_OUT_JAVA_LIBRARIES)/proguard-4.0.1.jar \
 		-injars $< \
 		-outjars $@ \
 		-target 1.5 \

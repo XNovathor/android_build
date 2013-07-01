@@ -36,7 +36,7 @@ function build_stubs()
         LD_LIBRARY_PATH=out/host/$PLATFORM/lib \
         javadoc \
             \@$OBJ_DIR/javadoc-src-list \
-            -J-Xmx512m \
+            -J-Xmx1024m \
             -J-Djava.library.path=out/host/$PLATFORM/lib \
              \
             -quiet \

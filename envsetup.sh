@@ -1079,7 +1079,7 @@ function runhat()
     echo "Running hat on $localFile"
     echo "View the output by pointing your browser at http://localhost:7000/"
     echo ""
-    hat -JXmx512m $localFile
+    hat -JXmx1024m $localFile
 }
 
 function getbugreports()

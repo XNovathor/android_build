@@ -9,15 +9,15 @@
 
 # Whatever compiler is on this system.
 ifeq ($(BUILD_OS), windows)
-    COMMON_JAVAC := development/host/windows/prebuilt/javawrap.exe -J-Xmx512m \
+    COMMON_JAVAC := development/host/windows/prebuilt/javawrap.exe -J-Xmx1024m \
         -target 1.5 -Xmaxerrs 9999999
 else
-    COMMON_JAVAC := javac -J-Xmx512M -target 1.5 -Xmaxerrs 9999999
+    COMMON_JAVAC := javac -J-Xmx1024M -target 1.5 -Xmaxerrs 9999999
 endif
 
 # Eclipse.
 ifeq ($(CUSTOM_JAVA_COMPILER), eclipse)
-    COMMON_JAVAC := java -Xmx512m -jar prebuilt/common/ecj/ecj.jar -5 \
+    COMMON_JAVAC := java -Xmx1024m -jar prebuilt/common/ecj/ecj.jar -5 \
         -maxProblems 9999999 -nowarn
     $(info CUSTOM_JAVA_COMPILER=eclipse)
 endif
