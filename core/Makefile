@@ -1356,12 +1356,8 @@ else
     IMG_FROM_TARGET_SCRIPT := $(TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT)
 endif
 $(INTERNAL_UPDATE_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) $(DISTTOOLS)
-<<<<<<< HEAD
 	@echo "Package: $@"
-=======
-	@echo -e ${CL_YLW}"Package:"${CL_RST}" $@"
 	MKBOOTIMG=$(BOARD_CUSTOM_BOOTIMG_MK) \
->>>>>>> ff41d07... releasetools: use prebuilt boot image if using a custom boot image makefile
 	$(IMG_FROM_TARGET_SCRIPT) -v \
 	   -s $(extensions) \
 	   -p $(HOST_OUT) \
